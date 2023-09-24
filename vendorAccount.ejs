@@ -1,0 +1,23 @@
+<%- include ('partials/header') %>
+<title>vendorAccount</title>
+    <link rel="stylesheet" href="/css/styles.css">
+<%- include ('partials/header2') %>
+<!-- Hiển thị thông tin cá nhân -->
+<h1>User Information</h1>
+<p>Username: <%= user.username %></p>
+<img src="<%= user.profilePicture %>" alt="Ảnh cá nhân">
+<% if (user.userType === 'vendor') { %>
+    <p>Your Business Name: <%= user.businessName %></p>
+    <p>Your Business Address: <%= user.businessAddress %></p>
+<% } %>
+<!-- Cho phép người dùng chỉnh sửa thông tin -->
+<form action="/updateProfile" method="POST" enctype="multipart/form-data">
+    <!-- Thêm các trường nhập liệu tương ứng -->
+    <% if (user.userType === 'vendor') { %>
+        <input type="text" name="newBusinessName" placeholder="newBusinessName">
+        <input type="text" name="newBusinessAddress" placeholder="newBusinessAddress">
+        <input type="file" name="newProfilePicture" accept="image/*" placeholder="New Profile Picture">
+    <% } %>
+    <button type="submit">Save</button>
+</form>
+<%- include ('partials/footer') %>
