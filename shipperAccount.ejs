@@ -1,0 +1,27 @@
+<%- include ('partials/header') %>
+<title>shipperAccount</title>
+    <link rel="stylesheet" href="/css/styles.css">
+<%- include ('partials/header2') %>
+<!-- Hiển thị thông tin cá nhân -->
+<h1>User Information</h1>
+<p>Username: <%= user.username %></p>
+<img src="<%= user.profilePicture %>" alt="Ảnh cá nhân">
+<%  if (user.userType === 'shipper') { %>
+    <p>Distribution Hub: <%= user.distributionHub %></p>
+<% } %>
+
+<!-- Cho phép người dùng chỉnh sửa thông tin -->
+<form action="/updateProfile" method="POST" enctype="multipart/form-data">
+    <!-- Thêm các trường nhập liệu tương ứng -->
+    <% if (user.userType === 'shipper') { %>
+        <label for="newDistributionHub">Choose a Distribution Hub:</label>
+        <select name="newDistributionHub" id="newDistributionHub">
+            <option value="Ho Chi Minh" <%= user.distributionHub === 'Ho Chi Minh' ? 'selected' : '' %>>Ho Chi Minh</option>
+            <option value="Da Nang" <%= user.distributionHub === 'Da Nang' ? 'selected' : '' %>>Da Nang</option>
+            <option value="Hanoi" <%= user.distributionHub === 'Hanoi' ? 'selected' : '' %>>Hanoi</option>
+        </select>
+        <input type="file" name="newProfilePicture" accept="image/*" placeholder="New Profile Picture">
+    <% } %>
+    <button type="submit">Save</button>
+</form>
+<%- include ('partials/footer') %>
